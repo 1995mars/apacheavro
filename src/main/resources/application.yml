@@ -1,24 +1,29 @@
 topic:
-  name: mars
+    file: file-chunks
+    name: file-chunks
+
+app:
+    input-dir: "C:/Users/ADMIN/OneDrive/Máy tính/Test/apacheavro/data/in"
+    output-dir: "C:/Users/ADMIN/OneDrive/Máy tính/Test/apacheavro/data/out"
+    chunk-size-bytes: 524288   # 512KB
+
 spring:
-  kafka:
-    bootstrap-servers: "kafka-cluster:9092,kafka-cluster:9093,kafka-cluster:9093"
-    producer:
-      keySerializer: "org.apache.kafka.common.serialization.StringSerializer"
-      valueSerializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
-      properties:
-        schema:
-          registry:
-            url: "http://kafka-cluster:8081"
-    consumer:
-      group-id: "javatechie-new"
-      keyDeserializer: "org.apache.kafka.common.serialization.StringDeserializer"
-      valueDeserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
-      autoOffsetReset: "earliest"
-      properties:
-        schema:
-          registry:
-            url: "http://kafka-cluster:8081"
-        specific:
-          avro:
-            reader: "true"
+    kafka:
+        bootstrap-servers: "kafka1:9092,kafka2:9092,kafka3:9092"
+
+        properties:
+            schema.registry.url: "http://schema-registry:8081"
+
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+        consumer:
+            group-id: file-workers
+            auto-offset-reset: earliest
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            properties:
+                specific.avro.reader: true
+                # đọc chunk theo thứ tự tốt hơn (optional):
+                max.poll.records: 50

@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "FileChunk",
+  "namespace": "com.mars.apacheavro.dto",
+  "fields": [
+    { "name": "fileId", "type": "string" },
+    { "name": "fileName", "type": "string" },
+    { "name": "chunkIndex", "type": "int" },
+    { "name": "totalChunks", "type": "int" },
+    { "name": "data", "type": "bytes" },
+    { "name": "checksumSha256", "type": "string", "default": "" }
+  ]
+}
