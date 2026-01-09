@@ -1,0 +1,3 @@
+curl --location 'http://localhost:8080/api/files/send' \
+--header 'Content-Type: application/json' \
+--data '{ "fileName": "HDDT.zip" }'
