@@ -16,12 +16,12 @@ Tài liệu này cung cấp **docker-compose.yml** chạy:
 
 Chạy 1 trong 2 cách:
 
-**Cách A (Docker):**
+**Cách 1 (Docker):**
 ```bash
 docker run --rm confluentinc/cp-kafka:7.6.0 bash -lc "kafka-storage.sh random-uuid"
 ```
 
-**Cách B (nếu đã có kafka-storage.sh trên máy):**
+**Cách 2 (nếu đã có kafka-storage.sh trên máy):**
 ```bash
 kafka-storage.sh random-uuid
 ```
@@ -205,18 +205,7 @@ spring:
 
 ---
 
-## 5) Troubleshooting nhanh
-
-### A) Lỗi `environment variable "KAFKA_PROCESS_ROLES" is not set`
-- Bạn đang dùng image/entrypoint yêu cầu KRaft vars. File compose trong tài liệu đã set đầy đủ.
-
-### B) Lỗi `Running in KRaft mode... CLUSTER_ID is required`
-- Bạn chưa có `.env` hoặc chưa set `CLUSTER_ID`.
-- Tạo `.env` với `CLUSTER_ID=...` rồi `docker compose up -d` lại.
-
-### C) Schema Registry lỗi: `No supported Kafka endpoints are configured...`
-- Nguyên nhân: bootstrap servers không khớp protocol.
-- Sửa: dùng `SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=PLAINTEXT://kafkaX:9092,...`
-  (không dùng `INTERNAL://...`).
-
+## 5) Note
+- Chỉ cần chạy docker-compose up vì đã tạo sẵn file docker-compose
+- vào thư mục postman để lấy api để test
 ---
